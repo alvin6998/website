@@ -2,7 +2,7 @@
 name: "VLC"
 author: "videolan"
 github: "https://github.com/videolan/vlc"
-license: "GPL-2.0"
+license: "GPL-2.0、LGPL-2.1"
 website: "https://www.videolan.org/vlc/"
 language:
   - C
