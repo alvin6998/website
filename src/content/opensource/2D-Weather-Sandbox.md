@@ -2,7 +2,7 @@
 name: "2D-Weather-Sandbox"
 author: "niels747"
 github: "https://github.com/niels747/2D-Weather-Sandbox"
-license: "GPL-3.0 license"
+license: "GPL-3.0"
 website: "https://niels747.github.io/2D-Weather-Sandbox/"
 language:
   - JavaScript
