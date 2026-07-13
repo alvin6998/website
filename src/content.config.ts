@@ -39,6 +39,8 @@ const opensource = defineCollection({
     github: z.string().url(),
     website: z.string().url().optional(),
     license: z.string(),
+    language: z.array(z.string()).optional(),
+    category: z.string().optional(),
     reason: z.string(),
   }),
 });
