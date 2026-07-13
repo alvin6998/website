@@ -1,0 +1,35 @@
+---
+// Footer.astro
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <p>© {year} Alvin HomeLab</p>
+  <p>本站持續開發中。</p>
+  <p class="muted">Built with Astro • Hosted on GitHub Pages • Protected by Cloudflare</p>
+</footer>
+
+<style>
+  footer{
+    border-top: 1px solid var(--border);
+    padding: 20px 32px;
+    text-align: center;
+  }
+  footer p{
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-family: var(--mono);
+    line-height: 1.8;
+  }
+  footer p.muted{
+    font-size: 0.78rem;
+    opacity: 0.75;
+  }
+
+  @media (max-width: 600px){
+    footer{
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+</style>

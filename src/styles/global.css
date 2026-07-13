@@ -1,0 +1,26 @@
+:root{
+  --bg: #0d1117;
+  --bg-card: #161b22;
+  --border: #30363d;
+  --text: #c9d1d9;
+  --text-dim: #8b949e;
+  --accent: #58a6ff;
+  --mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+  --sans: 'Inter', -apple-system, 'Segoe UI', 'Noto Sans TC', sans-serif;
+}
+
+*{ box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body{
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  min-height: 100vh;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+}
+
+a{ color: inherit; }

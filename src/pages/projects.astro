@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const allProjects = await getCollection('projects');
+const sortedProjects = allProjects.sort(
+  (a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf()
+);
+---
+
+<Layout title="專案 — Alvin Homelab">
+  <div class="page">
+    <SectionTitle title="Projects" subtitle="自己動手做的東西。" />
+    <div class="grid">
+      {sortedProjects.map((project) => (
+        <ProjectCard
+          title={project.data.title}
+          description={project.data.description}
+          tech={project.data.tech}
+          status={project.data.status}
+          github={project.data.github}
+          demo={project.data.demo}
+        />
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page{
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 32px;
+  }
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+</style>

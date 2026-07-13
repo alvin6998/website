@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+---
+
+<Layout title="技術筆記 — Alvin Homelab">
+  <div class="page">
+    <SectionTitle title="Technical Notes" subtitle="像知識庫,不是部落格。" />
+    <p class="empty">建置中</p>
+  </div>
+</Layout>
+
+<style>
+  .page{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 32px;
+  }
+  .empty{
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 0.9rem;
+  }
+</style>

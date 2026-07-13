@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+---
+
+<Layout title="開源推薦 — Alvin Homelab">
+  <div class="page">
+    <SectionTitle title="Open Source Picks" subtitle="推薦專案,非本人作品。" />
+    <p class="empty">建置中</p>
+  </div>
+</Layout>
+
+<style>
+  .page{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 32px;
+  }
+  .empty{
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 0.9rem;
+  }
+</style>

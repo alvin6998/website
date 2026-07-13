@@ -1,0 +1,31 @@
+---
+// SectionTitle.astro
+interface Props {
+  title: string;
+  subtitle?: string;
+}
+
+const { title, subtitle } = Astro.props;
+---
+
+<div class="section-title">
+  <h2>{title}</h2>
+  {subtitle && <p>{subtitle}</p>}
+</div>
+
+<style>
+  .section-title{
+    margin-bottom: 20px;
+  }
+  .section-title h2{
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    font-family: var(--mono);
+  }
+  .section-title p{
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+</style>

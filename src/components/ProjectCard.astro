@@ -1,0 +1,96 @@
+---
+// ProjectCard.astro
+import Button from './Button.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  tech: string[];
+  status: '開發中' | '完成';
+  github?: string;
+  demo?: string;
+}
+
+const { title, description, tech, status, github, demo } = Astro.props;
+
+const statusColor = status === '完成' ? 'done' : 'progress';
+---
+
+<article class="card">
+  <div class="card-head">
+    <h3>{title}</h3>
+    <span class={`status status-${statusColor}`}>{status}</span>
+  </div>
+
+  <p class="desc">{description}</p>
+
+  <ul class="tech-tags">
+    {tech.map((t) => <li>{t}</li>)}
+  </ul>
+
+  <div class="links">
+    {github && <Button href={github} external>GitHub</Button>}
+    {demo && <Button href={demo} variant="primary" external>Demo</Button>}
+  </div>
+</article>
+
+<style>
+  .card{
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .card-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .card-head h3{
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .status{
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .status-done{
+    color: #3fb950;
+    background: rgba(63, 185, 80, 0.12);
+  }
+  .status-progress{
+    color: #d29922;
+    background: rgba(210, 153, 34, 0.12);
+  }
+  .desc{
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+  .tech-tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style: none;
+  }
+  .tech-tags li{
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .links{
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+  }
+</style>

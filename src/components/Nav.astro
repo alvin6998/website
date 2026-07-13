@@ -1,0 +1,51 @@
+---
+// Nav.astro
+// 導覽列,依目前路徑自動標示 active
+const currentPath = Astro.url.pathname;
+
+const links = [
+  { href: '/projects/', label: '專案' },
+  { href: '/opensource/', label: '開源推薦' },
+  { href: '/about/', label: '關於' },
+];
+---
+
+<nav>
+  {links.map((link) => (
+    <a
+      href={link.href}
+      class={currentPath.startsWith(link.href) ? 'active' : ''}
+    >
+      {link.label}
+    </a>
+  ))}
+</nav>
+
+<style>
+  nav{
+    border-bottom: 1px solid var(--border);
+    padding: 14px 32px;
+    display: flex;
+    gap: 28px;
+  }
+  nav a{
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-family: var(--mono);
+    transition: color .15s ease;
+  }
+  nav a:hover,
+  nav a.active{
+    color: var(--accent);
+  }
+
+  @media (max-width: 600px){
+    nav{
+      gap: 18px;
+      overflow-x: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+</style>

@@ -1,0 +1,49 @@
+---
+// Button.astro
+interface Props {
+  href: string;
+  variant?: 'primary' | 'ghost';
+  external?: boolean;
+}
+
+const { href, variant = 'ghost', external = false } = Astro.props;
+---
+
+<a
+  href={href}
+  class={`btn btn-${variant}`}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+>
+  <slot />
+</a>
+
+<style>
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .btn-ghost{
+    color: var(--text-dim);
+  }
+  .btn-ghost:hover{
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .btn-primary{
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .btn-primary:hover{
+    background: var(--accent);
+    color: var(--bg);
+  }
+</style>

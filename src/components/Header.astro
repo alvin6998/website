@@ -1,0 +1,30 @@
+---
+// Header.astro
+// 網站頂部品牌區塊
+---
+
+<header>
+  <div class="brand"><span class="dot"></span>Alvin Homelab</div>
+</header>
+
+<style>
+  header{
+    border-bottom: 1px solid var(--border);
+    padding: 20px 32px;
+  }
+  .brand{
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .brand .dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+</style>

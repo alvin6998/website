@@ -1,0 +1,58 @@
+---
+// NoteCard.astro
+interface Props {
+  title: string;
+  category: string;
+  updatedAt: string;
+  href: string;
+}
+
+const { title, category, updatedAt, href } = Astro.props;
+---
+
+<a href={href} class="note-row">
+  <span class="date">{updatedAt}</span>
+  <span class="title">{title}</span>
+  <span class="category">{category}</span>
+</a>
+
+<style>
+  .note-row{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 4px;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    transition: background .15s ease;
+  }
+  .note-row:hover{
+    background: var(--bg-card);
+  }
+  .date{
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  .title{
+    flex: 1;
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .category{
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 600px){
+    .note-row{
+      flex-wrap: wrap;
+    }
+  }
+</style>
