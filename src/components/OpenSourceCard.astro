@@ -8,10 +8,12 @@ interface Props {
   github: string;
   website?: string;
   license: string;
+  language?: string[];
+  category?:string;
   reason: string;
 }
 
-const { name, author, github, website, license, reason } = Astro.props;
+const { name, author, github, website, license,language = [],category, reason } = Astro.props;
 ---
 
 <article class="card">
@@ -20,7 +22,19 @@ const { name, author, github, website, license, reason } = Astro.props;
     <span class="badge">推薦專案・非本人作品</span>
   </div>
 
-  <p class="meta">原作者：{author} ・ License：{license}</p>
+  <div class="meta">
+    {category && <span class="category">{category}</span>}
+
+    {language.length > 0 && (
+      <div class="tags">
+        {language.map((lang) => (
+          <span class="tag">{lang}</span>
+      ))}
+    </div>
+  )}
+
+  <p>原作者：{author} ・ License：{license}</p>
+</div>
 
   <p class="reason">{reason}</p>
 
@@ -62,9 +76,12 @@ const { name, author, github, website, license, reason } = Astro.props;
     white-space: nowrap;
   }
   .meta{
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    color: var(--text-dim);
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    font-family:var(--mono);
+    font-size:.78rem;
+    color:var(--text-dim);
   }
   .reason{
     font-size: 0.88rem;
@@ -75,5 +92,29 @@ const { name, author, github, website, license, reason } = Astro.props;
     display: flex;
     gap: 8px;
     margin-top: 4px;
+  }
+  .category{
+  display:inline-flex;
+  align-self:flex-start;
+  padding:3px 10px;
+  border-radius:999px;
+  background:rgba(56,139,253,.15);
+  border:1px solid rgba(56,139,253,.35);
+  color:#58a6ff;
+  font-size:.72rem;
+  }
+
+  .tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  .tag{
+    padding:3px 10px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    font-size:.72rem;
+    color:var(--text-dim);
   }
 </style>
