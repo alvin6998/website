@@ -3,11 +3,14 @@ import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import OpenSourceCard from '../components/OpenSourceCard.astro';
 
 const allProjects = await getCollection('projects');
 const featuredProjects = allProjects.sort(
   (a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf()
 );
+
+const openSourcePicks = await getCollection('opensource');
 ---
 
 <Layout>
@@ -32,7 +35,18 @@ const featuredProjects = allProjects.sort(
   </section>
 
   <section class="section">
-    <SectionTitle title="Open Source Picks" subtitle="建置中。" />
+    <SectionTitle title="Open Source Picks" subtitle="推薦專案，非本人作品。" />
+    {
+      openSourcePicks.length > 0 ? (
+        <div class="grid">
+          {openSourcePicks.map(({ data }) => (
+            <OpenSourceCard {...data} />
+          ))}
+        </div>
+      ) : (
+        <p class="empty">建置中。</p>
+      )
+    }
   </section>
 </Layout>
 
@@ -47,4 +61,10 @@ const featuredProjects = allProjects.sort(
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 16px;
   }
+  .empty{
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 0.9rem;
+  }
 </style>
+
