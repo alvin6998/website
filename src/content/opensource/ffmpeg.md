@@ -12,6 +12,6 @@ language:
   - C++
   - Objective-C
   - Other
-category: "Audio Editor"
-reason: "全球最受歡迎的音訊錄製與編輯應用程式"
+category: "Multimedia"
+reason: "完整且跨平台的解決方案,可用於錄製、轉換和串流音訊與視訊。"
 ---
