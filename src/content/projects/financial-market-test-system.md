@@ -1,6 +1,6 @@
 ---
-title: "金融市場常識與專業倫理測驗系統"
-description: "一套用於練習金融市場常識與專業倫理知識的測驗系統。"
+title: "金融市場常識與職業道德測驗系統"
+description: "一套用於練習金融市場常識與職業道德的測驗系統。"
 tech: ["Python"]
 status: "完成"
 github: "https://github.com/alvin6998/Financial-Market-Common-Sense-and-Professional-Ethics-Test-System"
