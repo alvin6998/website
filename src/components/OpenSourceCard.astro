@@ -46,13 +46,20 @@ const { name, author, github, website, license,language = [],category, reason } 
 
 <style>
   .card{
-    background: var(--bg-card);
-    border: 1px dashed var(--border);
+    background: rgba(22, 27, 34, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px dashed rgba(255, 255, 255, 0.16);
     border-radius: 8px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .card:hover{
+    background: rgba(22, 27, 34, 0.8);
+    border-color: rgba(255, 255, 255, 0.28);
   }
   .card-head{
     display: flex;
