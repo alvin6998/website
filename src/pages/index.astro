@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import OpenSourceCard from '../components/OpenSourceCard.astro';
+import NoteCard from '../components/NoteCard.astro';
 
 const allProjects = await getCollection('projects');
 const featuredProjects = allProjects.sort(
@@ -11,7 +12,15 @@ const featuredProjects = allProjects.sort(
 );
 
 const openSourcePicks = await getCollection('opensource');
+
+const allNotes = await getCollection('notes');
+const latestNotes = allNotes
+  .sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf())
+  .slice(0, 5);
+ 
+const formatDate = (date: Date) => date.toISOString().slice(0, 10);
 ---
+
 
 <Layout>
   <section class="section">
@@ -30,9 +39,26 @@ const openSourcePicks = await getCollection('opensource');
     </div>
   </section>
 
-  <section class="section">
-    <SectionTitle title="Latest Technical Notes" subtitle="建置中。" />
+    <section class="section">
+    <SectionTitle title="Latest Technical Notes" subtitle="像知識庫，不是部落格。" />
+    {
+      latestNotes.length > 0 ? (
+        <div class="list">
+          {latestNotes.map((note) => (
+            <NoteCard
+              title={note.data.title}
+              category={note.data.category}
+              updatedAt={formatDate(note.data.updatedAt)}
+              href={`/notes/${note.id}/`}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="empty">建置中。</p>
+      )
+    }
   </section>
+
 
   <section class="section">
     <SectionTitle title="Open Source Picks" subtitle="推薦專案，非本人作品。" />
@@ -60,6 +86,10 @@ const openSourcePicks = await getCollection('opensource');
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 16px;
+  }
+  .list{
+    display: flex;
+    flex-direction: column;
   }
   .empty{
     color: var(--text-dim);

@@ -1,0 +1,129 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes');
+  return notes.map((note) => ({
+    params: { slug: note.id },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+
+const categoryLabels: Record<string, string> = {
+  networking: 'Networking',
+  cloudflare: 'Cloudflare',
+  dns: 'DNS',
+  linux: 'Linux',
+  sdr: 'SDR',
+  weather: 'Weather',
+  ai: 'AI',
+};
+
+const formatDate = (date: Date) => date.toISOString().slice(0, 10);
+---
+
+<Layout title={`${note.data.title} — Alvin Homelab`}>
+  <article class="note">
+    <div class="breadcrumb">
+      <a href="/notes/">Technical Notes</a> / {categoryLabels[note.data.category] ?? note.data.category}
+    </div>
+
+    <h1>{note.data.title}</h1>
+
+    <div class="meta">
+      <span class="category">{categoryLabels[note.data.category] ?? note.data.category}</span>
+      <span class="date">最後更新：{formatDate(note.data.updatedAt)}</span>
+    </div>
+
+    <div class="content">
+      <Content />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .note{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 32px;
+  }
+  .breadcrumb{
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+  .breadcrumb a{
+    color: var(--text-dim);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover{
+    color: var(--accent);
+  }
+  h1{
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .meta{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .category{
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .date{
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-dim);
+  }
+  .content{
+    line-height: 1.8;
+    font-size: 0.95rem;
+  }
+  .content :global(h2){
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
+  .content :global(p){
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+  .content :global(code){
+    font-family: var(--mono);
+    font-size: 0.85em;
+    background: var(--bg-card);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .content :global(pre){
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    margin-bottom: 16px;
+  }
+  .content :global(ul), .content :global(ol){
+    margin-bottom: 16px;
+    padding-left: 24px;
+  }
+  .content :global(a){
+    color: var(--accent);
+  }
+</style>

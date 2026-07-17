@@ -1,12 +1,36 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import SectionTitle from '../components/SectionTitle.astro';
+import NoteCard from '../components/NoteCard.astro';
+
+const allNotes = await getCollection('notes');
+const sortedNotes = allNotes.sort(
+  (a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf()
+);
+
+const formatDate = (date: Date) => date.toISOString().slice(0, 10);
 ---
 
 <Layout title="技術筆記 — Alvin Homelab">
   <div class="page">
     <SectionTitle title="Technical Notes" subtitle="像知識庫,不是部落格。" />
-    <p class="empty">建置中</p>
+    {
+      sortedNotes.length > 0 ? (
+        <div class="list">
+          {sortedNotes.map((note) => (
+            <NoteCard
+              title={note.data.title}
+              category={note.data.category}
+              updatedAt={formatDate(note.data.updatedAt)}
+              href={`/notes/${note.id}/`}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="empty">建置中</p>
+      )
+    }
   </div>
 </Layout>
 
@@ -15,6 +39,10 @@ import SectionTitle from '../components/SectionTitle.astro';
     max-width: 880px;
     margin: 0 auto;
     padding: 48px 32px;
+  }
+  .list{
+    display: flex;
+    flex-direction: column;
   }
   .empty{
     color: var(--text-dim);
