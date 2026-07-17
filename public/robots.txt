@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alvinhomelab.idv.tw/sitemap-index.xml
