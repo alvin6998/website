@@ -4,6 +4,7 @@
 const currentPath = Astro.url.pathname;
 
 const links = [
+  { href: '/', label: '首頁' },
   { href: '/projects/', label: '專案' },
   { href: '/notes/', label: '技術筆記' },
   { href: '/opensource/', label: '開源推薦' },
@@ -15,7 +16,11 @@ const links = [
   {links.map((link) => (
     <a
       href={link.href}
-      class={currentPath.startsWith(link.href) ? 'active' : ''}
+      class={
+        (link.href === '/' ? currentPath === '/' : currentPath.startsWith(link.href))
+          ? 'active'
+          : ''
+      }
     >
       {link.label}
     </a>
