@@ -22,6 +22,30 @@ www.google.com
 
 ---
 
+# 為什麼需要 DNS？
+
+電腦與電腦之間，其實只認得 IP 位址。
+
+但 IP 位址對人類來說，實在很難記。
+
+想像一下：
+
+```text
+你想找 Google
+
+但你要背的是
+
+142.250.xxx.xxx
+
+而不是
+
+google.com
+```
+
+有了 DNS，我們只需要記住好記的名字，剩下的翻譯工作，都交給 DNS 系統來處理。
+
+---
+
 # DNS 的運作流程
 
 假設今天你在瀏覽器輸入：
@@ -54,14 +78,6 @@ Cloudflare Authoritative DNS
 開始連線網站
 ```
 
-> 💡 小知識
->
-> `.idv.tw` 是由 **TWNIC** 管理的第二層網域（Second-Level Domain）。
->
-> 因此查詢 `alvinhomelab.idv.tw` 時，`.tw` 的權威 DNS 就能直接告訴 Resolver：
->
-> 「這個網域交給 Cloudflare 管理。」
-
 🤣 可以把它想成：
 
 > 「請問 Alvin Homelab 在哪呢？」
@@ -80,79 +96,27 @@ Cloudflare：
 
 ---
 
-# 常見 DNS 記錄
+# Root、TLD、權威 DNS
 
-每個網域都會有許多不同的 DNS 記錄，就像一張張資料卡。
+DNS 的架構其實是一層一層往下委派的：
 
-| 紀錄 | 用途 |
-|------|------|
-| A | IPv4 位址 |
-| AAAA | IPv6 位址 |
-| CNAME | 網域別名 |
-| MX | 電子郵件伺服器 |
-| TXT | 驗證、SPF、DKIM 等資訊 |
-| NS | 指定權威 DNS |
-| SOA | DNS 區域基本資訊 |
-| CAA | 限制哪些憑證機構可以簽發 SSL 憑證 |
+- **Root DNS**：整個 DNS 系統的最頂層，知道每個頂級網域（TLD）該去問誰
+- **TLD（Top-Level Domain）**：例如 `.tw`、`.com`、`.idv.tw`，知道這個網域是交給哪個單位管理
+- **權威 DNS（Authoritative DNS）**：真正保存該網域 DNS 記錄的伺服器，負責回答最終答案
 
-🤣 如果把網站比喻成一家店：
+> 💡 小知識
+>
+> `.idv.tw` 是由 **TWNIC** 管理的第二層網域（Second-Level Domain）。
+>
+> 因此查詢 `alvinhomelab.idv.tw` 時，`.tw` 的權威 DNS 就能直接告訴 Resolver：
+>
+> 「這個網域交給 Cloudflare 管理。」
 
-- A和AAAA：店家地址
-- MX：郵件收件地址
-- TXT：貼在門口的公告
-- NS：告訴大家「這個網域由誰管理」
-- CNAME：店家的別名
-- CAA：只有指定單位才能幫店家發證照
+這一層一層往下問的方式，就是為什麼 DNS 查詢有時候會經過好幾個環節，才能拿到最終答案。
 
 ---
 
-# 權威 DNS（Authoritative DNS）
-
-每個網域都需要指定權威 DNS，它負責保存該網域真正的 DNS 記錄。
-
-例如本站：
-
-```text
-alvinhomelab.idv.tw
-```
-
-目前使用：
-
-```text
-daisy.ns.cloudflare.com
-fred.ns.cloudflare.com
-```
-
-因此，Cloudflare 負責回答全世界：
-
-> 「alvinhomelab.idv.tw 的 DNS 紀錄是什麼？」
-
----
-
-# DNS 代管
-
-DNS 並不一定要由網域註冊商提供喔。
-
-常見 DNS 代管服務包括：
-
-- Cloudflare DNS
-- Amazon Route 53
-- Google Cloud DNS
-- Azure DNS（Microsoft Azure 的 DNS 服務）
-- 中華電信 HiNet Pro DNS
-- 網域註冊商提供的 DNS
-- 自架 BIND、PowerDNS 等
-
-每一家都有不同特色，例如：
-
-- Cloudflare：免費方案完整，適合個人網站。
-- Route 53：適合 AWS 生態系。
-- Azure DNS：適合 Microsoft Azure 雲端服務。
-- HiNet Pro DNS：企業級 DNS 代管服務。
-
----
-
-# 本站架構
+# 本站實際架構
 
 本站目前採用：
 
@@ -162,6 +126,13 @@ PowerWeb（網域註冊）
 Cloudflare（DNS）
           │
 GitHub Pages（網站）
+```
+
+實際負責回答 DNS 查詢的權威伺服器是：
+
+```text
+daisy.ns.cloudflare.com
+fred.ns.cloudflare.com
 ```
 
 Cloudflare 負責 DNS、HTTPS 與 CDN，而 GitHub Pages 則作為網站的來源（Origin）。
@@ -184,3 +155,9 @@ alvinhomelab.idv.tw 😆
 ```
 
 剩下的事情，就交給 DNS 幫你完成吧！
+
+---
+
+常見的 DNS 記錄有哪些呢？
+
+下一篇我們一起來認識！
