@@ -33,6 +33,18 @@ const {
       <slot />
     </main>
     <Footer />
+
+    <script>
+      document.addEventListener('pointermove', (e) => {
+        document.querySelectorAll<HTMLElement>('.card').forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mx', `${x}px`);
+          card.style.setProperty('--my', `${y}px`);
+        });
+      });
+    </script>
   </body>
 </html>
 
