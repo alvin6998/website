@@ -1,24 +1,102 @@
 ---
+import { getEntry, render } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import SectionTitle from '../components/SectionTitle.astro';
+
+const about = await getEntry('about', 'profile');
+
+if (!about) {
+  throw new Error('Missing About content: src/content/about/profile.md');
+}
+
+const { Content } = await render(about);
 ---
 
-<Layout title="關於 — Alvin Homelab" description="技術興趣、網站宗旨與聯絡方式。">
-  <div class="page">
-    <SectionTitle title="About" />
-    <p class="empty">建置中</p>
-  </div>
+<Layout title={`${about.data.title} | Alvin Homelab`} description={about.data.description}>
+  <article class="about">
+    <header class="intro">
+      <p class="eyebrow">ABOUT</p>
+      <h1>{about.data.title}</h1>
+      <p class="description">{about.data.description}</p>
+    </header>
+
+    <div class="content">
+      <Content />
+    </div>
+
+    <footer class="updated">最後更新：{about.data.updatedAt.toISOString().slice(0, 10)}</footer>
+  </article>
 </Layout>
 
 <style>
-  .page{
-    max-width: 880px;
+  .about{
+    max-width: 760px;
     margin: 0 auto;
-    padding: 48px 32px;
+    padding: 64px 32px;
   }
-  .empty{
+  .intro{
+    padding-bottom: 32px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow,
+  .updated{
     color: var(--text-dim);
     font-family: var(--mono);
-    font-size: 0.9rem;
+    font-size: 0.78rem;
+  }
+  .eyebrow{
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+  h1{
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .description{
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+  .content{
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+  .content :global(h2){
+    font-size: 1.3rem;
+    margin: 40px 0 14px;
+  }
+  .content :global(p),
+  .content :global(ul),
+  .content :global(ol){
+    margin-bottom: 18px;
+  }
+  .content :global(ul),
+  .content :global(ol){
+    padding-left: 24px;
+  }
+  .content :global(li + li){
+    margin-top: 6px;
+  }
+  .content :global(a){
+    color: var(--accent);
+  }
+  .content :global(code){
+    background: var(--bg-card);
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 0.9em;
+    padding: 2px 6px;
+  }
+  .updated{
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+    padding-top: 20px;
+  }
+  @media (max-width: 600px){
+    .about{
+      padding: 48px 20px;
+    }
   }
 </style>

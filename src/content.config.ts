@@ -45,4 +45,13 @@ const opensource = defineCollection({
   }),
 });
 
-export const collections = { projects, notes, opensource };
+const about = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/about' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    updatedAt: z.date(),
+  }),
+});
+
+export const collections = { projects, notes, opensource, about };
