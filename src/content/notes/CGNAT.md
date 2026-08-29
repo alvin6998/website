@@ -49,6 +49,7 @@ CGNAT用的IP通常是 `100.64.0.0/10`，即 100.64.0.0 到 100.127.255.255
 但是呢有條件可以用RFC 1918 當做CGNAT，前提是這兩個條件其中之一能符合
 1. CPE/NAT 能正確處理兩側使用相同 RFC 1918 網段
 2. ISP 確定這個 RFC 1918 網段不會跟用戶端內部網路重疊
+
 如果上述條件至少一個都不成立，ISP 就不能安全地使用 RFC 1918，必須改用 Shared Address Space (共享位址空間)。
 
 **如果沒正確處理，這在企業會有什麼影響？**
@@ -56,5 +57,6 @@ CGNAT用的IP通常是 `100.64.0.0/10`，即 100.64.0.0 到 100.127.255.255
 雖然一般用戶通常不會察覺，但企業如果使用內部 VPN，或有需要點對點連線的服務，可能會因為 CGN 與企業內部 RFC 1918 網段發生路由衝突，導致連線無法正常建立。
 
 # 參考資料
-1. [電信級NAT](https://zh.wikipedia.org/zh-tw/%E7%94%B5%E4%BF%A1%E7%BA%A7NAT)
+1. [電信級NAT 維基百科](https://zh.wikipedia.org/zh-tw/%E7%94%B5%E4%BF%A1%E7%BA%A7NAT)
 2. [RFC6598](https://datatracker.ietf.org/doc/html/rfc6598)
+3. [RFC1918](https://datatracker.ietf.org/doc/html/rfc1918)
