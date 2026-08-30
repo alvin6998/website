@@ -1,5 +1,5 @@
 ---
-title: "DNS 基本介紹"
+title: "DNS 基本介紹 (舊版)"
 category: "dns"
 updatedAt: 2026-07-18
 ---

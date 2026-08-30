@@ -1,5 +1,5 @@
 ---
-title: "DNS 有哪些紀錄？"
+title: "DNS 有哪些紀錄？(舊版)"
 category: "dns"
 updatedAt: 2026-07-18
 ---
