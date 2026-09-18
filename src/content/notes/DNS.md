@@ -1,6 +1,6 @@
 ---
 title: "DNS介紹"
-category: "networking"
+category: "dns"
 updatedAt: 2026-08-30
 ---
 # DNS
