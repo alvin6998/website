@@ -126,4 +126,30 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
   .content :global(a){
     color: var(--accent);
   }
+  .content :global(.table-wrap){
+    overflow-x: auto;
+    margin-bottom: 20px;
+  }
+  .content :global(table){
+    width: 100%;
+    min-width: 520px;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+  .content :global(th),
+  .content :global(td){
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    text-align: left;
+    vertical-align: top;
+  }
+  .content :global(thead th),
+  .content :global(tbody th){
+    background: var(--bg-card);
+    font-weight: 600;
+  }
+  .content :global(tbody th){
+    white-space: nowrap;
+  }
 </style>
